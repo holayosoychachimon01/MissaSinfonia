@@ -1,0 +1,12 @@
+body{
+    background-image: url(fondo.png);
+}
+h1{
+    font-size: 100px;
+    text-align: center;color: rgb(79, 10, 255);
+}
+}
+h2{
+    font-size: 500px;
+    text-align: center;color: rgb(0, 0, 0);
+}
