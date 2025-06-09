@@ -1,0 +1,28 @@
+body {
+    background-image: url("fondo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    font-size: 2px !important;
+    text-align: center;
+    color: #007bff !important;
+}
+
+h2, h3 {
+    font-size: 6px;
+    text-align: center;
+    color: #0056b3 !important;
+}
+
+#inicio {
+    padding-top: 6px;
+}
+.item img{
+    height: 450px !important;
+    width: auto !important;
+    margin: 0 auto;
+}
