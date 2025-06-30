@@ -6,10 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MissaSinfonia Web</title>
     <link rel="stylesheet" href="estilo.css">
-    <link rel="icon" href="titulo.png" type="image/x-icon">
+    <link rel="icon" href="lo" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.31/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.31/dist/sweetalert2.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -17,6 +22,7 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#inicio">MissaSinfonia Web</a>
+                
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#inicio">Home</a></li>
@@ -25,6 +31,7 @@
                 <li><a href="#skins">MissaSinfonia Skins</a></li>
             </ul>
         </div>
+        <button type="button" class="btn btn-outline-primary login" onclick="login()">inicia sesion👥</button>
     </nav>
 
     <section id="inicio">
@@ -111,7 +118,7 @@
         <section id="imagenes">
             <img src="https://i.kym-cdn.com/photos/images/original/002/633/881/cea.jpg" alt="Meme MissaSinfonia">
         </section>
-        <div class="container">
+        <div class="container" style="position: relative;">
             <h2>vota el missa del mes</h2>
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
@@ -147,12 +154,76 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
+            <button onclick="votar()" class="custom-btn btn-10">votar</button>
         </div>
-        <button onclick="votar()">votar</button>
         <audio id="audio0" src="missasinfonia.mp3"></audio>
         <audio id="audio1" src="misanosinfonia.mp3"></audio>
         <audio id="audio2" src="soy_un_tiburon.mp3"></audio>
-        <script src="main.js"></script>
+        </form>
+    </section>
+    <div id="overlay">
+        <!-- LOGN IN FORM by Omar Dsoky -->
+        <form>
+            <!--   con = Container  for items in the form-->
+            <div class="con">
+                <!--     Start  header Content  -->
+                <header class="head-form">
+                    <h2>Log In</h2>
+                    <!--     A welcome message or an explanation of the login form -->
+                    <p>login here using your username and password</p>
+                </header>
+                <!--     End  header Content  -->
+                <br>
+                <div class="field-set">
+
+                    <!--   user name -->
+                    <span class="input-item">
+                        <i class="fa fa-user-circle"></i>
+                    </span>
+                    <!--   user name Input-->
+                    <input class="form-input" id="txt-input" type="text" placeholder="@UserName" required>
+
+                    <br>
+
+                    <!--   Password -->
+
+                    <span class="input-item">
+                        <i class="fa fa-key"></i>
+                    </span>
+                    <!--   Password Input-->
+                    <input class="form-input" type="password" placeholder="Password" id="pwd" name="password" required>
+
+                    <!--      Show/hide password  -->
+                    <span>
+                        <i class="fa fa-eye" aria-hidden="true" type="button" id="eye"></i>
+                    </span>
+
+
+                    <br>
+                    <!--        buttons -->
+                    <!--      button LogIn -->
+                    <button class="log-in"> Log In </button>
+                </div>
+
+                <!--   other buttons -->
+                <div class="other">
+                    <!--      Forgot Password button-->
+                    <button class="btn submits frgt-pass">Forgot Password</button>
+                    <!--     Sign Up button -->
+                    <button class="btn submits sign-up">Sign Up
+                        <!--         Sign Up font icon -->
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    </button>
+                    <!--      End Other the Division -->
+                </div>
+
+                <!--   End Conrainer  -->
+            </div>
+
+            <!-- End Form -->
+        </form>
+    </div>
+    <script src="main.js"></script>
 </body>
 
 </html>
