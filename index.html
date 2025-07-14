@@ -10,11 +10,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.31/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.31/dist/sweetalert2.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 </head>
 
 <body>
@@ -22,7 +24,7 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#inicio">MissaSinfonia Web</a>
-                
+
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#inicio">Home</a></li>
@@ -31,7 +33,11 @@
                 <li><a href="#skins">MissaSinfonia Skins</a></li>
             </ul>
         </div>
-        <button type="button" class="btn btn-outline-primary login" onclick="login()">inicia sesion👥</button>
+        <button type="button" class="btn btn-outline-primary login" onclick="mostrar_login()">inicia sesion👥</button>
+        <div class="usuario">
+            <img src="OIP.webp" id="foto">
+            <span id="name">juanitomascapito</span>
+        </div>
     </nav>
 
     <section id="inicio">
@@ -162,65 +168,43 @@
         </form>
     </section>
     <div id="overlay">
-        <!-- LOGN IN FORM by Omar Dsoky -->
-        <form>
-            <!--   con = Container  for items in the form-->
+        <form id="login-form" onsubmit="return false">
             <div class="con">
-                <!--     Start  header Content  -->
                 <header class="head-form">
-                    <h2>Log In</h2>
-                    <!--     A welcome message or an explanation of the login form -->
-                    <p>login here using your username and password</p>
+                    <h2>iniciado de sesion</h2>
+                    <p>
+                        pon tu usuario y contraseña
+                    </p>
                 </header>
-                <!--     End  header Content  -->
                 <br>
                 <div class="field-set">
 
-                    <!--   user name -->
                     <span class="input-item">
                         <i class="fa fa-user-circle"></i>
                     </span>
-                    <!--   user name Input-->
-                    <input class="form-input" id="txt-input" type="text" placeholder="@UserName" required>
-
+                    <input class="form-input" id="email-input" type="email" placeholder="@tu correo✉️" required>
                     <br>
-
-                    <!--   Password -->
-
                     <span class="input-item">
                         <i class="fa fa-key"></i>
                     </span>
-                    <!--   Password Input-->
-                    <input class="form-input" type="password" placeholder="Password" id="pwd" name="password" required>
-
-                    <!--      Show/hide password  -->
+                    <input class="form-input" type="password" placeholder="contraseña🔐" id="pwd" name="password"
+                        required>
                     <span>
                         <i class="fa fa-eye" aria-hidden="true" type="button" id="eye"></i>
                     </span>
-
-
                     <br>
-                    <!--        buttons -->
-                    <!--      button LogIn -->
-                    <button class="log-in"> Log In </button>
+                    <button class="log-in" onclick="login()"> iniciar sesion </button>
                 </div>
-
-                <!--   other buttons -->
                 <div class="other">
-                    <!--      Forgot Password button-->
-                    <button class="btn submits frgt-pass">Forgot Password</button>
-                    <!--     Sign Up button -->
-                    <button class="btn submits sign-up">Sign Up
-                        <!--         Sign Up font icon -->
+                    <button class="btn submits frgt-pass" onclick="recuperar()">¿no recuerdas tu contraseña?</button>
+
+                    <button class="btn submits sign-up" onclick="crear_cuenta ()">¿no tienes una misssacuenta?
+
                         <i class="fa fa-user-plus" aria-hidden="true"></i>
                     </button>
-                    <!--      End Other the Division -->
+
                 </div>
-
-                <!--   End Conrainer  -->
             </div>
-
-            <!-- End Form -->
         </form>
     </div>
     <script src="main.js"></script>

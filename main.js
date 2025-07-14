@@ -33,12 +33,12 @@ function stop() {
 
 function votar() {
   console.log("votaste por: " + currentIndex);
-  firebase.database().ref("Votacion").update({TisaFun:currentIndex})
+  firebase.database().ref("Votacion").update({ TisaFun: currentIndex })
   Swal.fire({
-  title: "felididades, ya votaste!",
-  icon: "success",
-  draggable: true
-});
+    title: "felididades, ya votaste!",
+    icon: "success",
+    draggable: true
+  });
 }
 const firebaseConfig = {
   apiKey: "AIzaSyCN1EJvGLyw_BOU1dbBpP7ketKUIUh3r40",
@@ -52,32 +52,80 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+auth = firebase.auth()
 // Show/hide password onClick of button using Javascript only
 
 // https://stackoverflow.com/questions/31224651/show-hide-password-onclick-of-button-using-javascript-only
 
 function show() {
-    var p = document.getElementById('pwd');
-    p.setAttribute('type', 'text');
+  var p = document.getElementById('pwd');
+  p.setAttribute('type', 'text');
 }
 
 function hide() {
-    var p = document.getElementById('pwd');
-    p.setAttribute('type', 'password');
+  var p = document.getElementById('pwd');
+  p.setAttribute('type', 'password');
 }
 
 var pwShown = 0;
 
 document.getElementById("eye").addEventListener("click", function () {
-    if (pwShown == 0) {
-        pwShown = 1;
-        show();
-    } else {
-        pwShown = 0;
-        hide();
-    }
+  if (pwShown == 0) {
+    pwShown = 1;
+    show();
+  } else {
+    pwShown = 0;
+    hide();
+  }
 }, false);
 
-function login (){
-  document.getElementById("overlay").style.display="block"
+function mostrar_login() {
+  document.getElementById("overlay").style.display = "block"
+}
+function login() {
+  correo = document.getElementById("email-input").value;
+  contraseña = document.getElementById("pwd").value;
+  auth.signInWithEmailAndPassword(correo, contraseña)
+    .then(() => {
+      Swal.fire({
+        title: "iniciaste sesion",
+        icon: "success",
+        draggable: true
+      });
+  document.getElementById("overlay").style.display = "block"
+    })
+    .catch(error=>{
+      Swal.fire("error",error.message,"error")
+    })
+}
+function crear_cuenta() {
+  correo = document.getElementById("email-input").value;
+  contraseña = document.getElementById("pwd").value;
+  auth.createUserWithEmailAndPassword(correo, contraseña)
+    .then(() => {
+      Swal.fire({
+        title: "cuenta creada, disfruta🤗",
+        icon: "success",
+        draggable: true
+      });
+  document.getElementById("overlay").style.display = "none"
+    })
+    .catch(error=>{
+      Swal.fire("error",error.message,"error")
+    })
+}
+function recuperar() {
+  correo = document.getElementById("email-input").value;
+  auth.sendPasswordResetEmail(correo)
+    .then(() => {
+      Swal.fire({
+        title: "gmail enviado, resivelo🔐",
+        icon: "success",
+        draggable: true
+      });
+  document.getElementById("overlay").style.display = "none"
+    })
+    .catch(error=>{
+      Swal.fire("error",error.message,"error")
+    })
 }

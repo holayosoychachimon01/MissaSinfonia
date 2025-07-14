@@ -278,6 +278,7 @@ button {
 /*     Sign Up button  */
 .sign-up {
     background: #B8F2E6;
+    width: 100%;
 }
 
 
@@ -302,7 +303,10 @@ button:hover {
     }
 }
 
-.login, .login:focus, .login:active, .login:hover {
+.login,
+.login:focus,
+.login:active,
+.login:hover {
     width: 150px;
     height: 45px;
     border: 6.5px outset blue !important;
@@ -311,5 +315,28 @@ button:hover {
     box-shadow: none !important;
     position: absolute;
     right: 20px;
-    top:0;
+    top: 0;
+}
+
+.log-in {
+    margin-top: 15px;
+}
+
+.usuario {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: white;
+    margin-right: 175px;
+    display: block;
+}
+
+#foto {
+    border-radius: 25px;
+    width: 50px;
+    filter: hue-rotate(170deg);
+}
+
+#name {
+    width: 100px;
 }
