@@ -79,20 +79,49 @@ document.getElementById("eye").addEventListener("click", function () {
   }
 }, false);
 
+if(localStorage.getItem("nombre") !== ""){
+  document.getElementById("login").style.display = "none"
+  document.getElementById("logout").style.display = "block"
+}else{
+  document.getElementById("login").style.display = "block"
+  document.getElementById("logout").style.display = "none"
+  document.getElementById("foto").src = "./OIP.webp"
+  document.getElementById("name").innerText = "M.S.F.W"
+  document.getElementById("foto").style.filter  = "hue-rotate("+Math.floor(Math.random() * 361)+")"
+}
 function mostrar_login() {
   document.getElementById("overlay").style.display = "block"
+}
+function ocultar_login() {
+  document.getElementById("overlay").style.display = "none"
+  document.getElementById("login").style.display = "block"
+  document.getElementById("logout").style.display = "none"
+  localStorage.clear();
+  document.getElementById("foto").src = "./OIP.webp"
+  document.getElementById("foto").style.filter  = "hue-rotate("+Math.floor(Math.random() * 361)+")"
+  document.getElementById("name").innerText = "M.S.F.W"
 }
 function login() {
   correo = document.getElementById("email-input").value;
   contraseña = document.getElementById("pwd").value;
   auth.signInWithEmailAndPassword(correo, contraseña)
-    .then(() => {
+    .then(async (unapalabra) => {
+      console.log(unapalabra)
+      uid = unapalabra.user.uid;
+      respuesta = await firebase.database().ref("usuario/" + uid).once("value");
+      usuario = respuesta.val()
+      localStorage.setItem("foto", usuario.foto);
+      localStorage.setItem("nombre", usuario.name);
+      document.getElementById("foto").src = usuario.foto
+      document.getElementById("name").innerText = usuario.name
+      document.getElementById("login").style.display = "none"
+      document.getElementById("logout").style.display = "block"
       Swal.fire({
-        title: "iniciaste sesion",
+        title:"iniciaste sesion",
         icon: "success",
         draggable: true
       });
-  document.getElementById("overlay").style.display = "block"
+  document.getElementById("overlay").style.display = "none"
     })
     .catch(error=>{
       Swal.fire("error",error.message,"error")
