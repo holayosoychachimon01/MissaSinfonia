@@ -33,7 +33,7 @@ function stop() {
 
 function votar() {
   console.log("votaste por: " + currentIndex);
-  firebase.database().ref("Votacion").update({ TisaFun: currentIndex })
+  firebase.database().ref("usuario/"+localStorage.getItem("uid","")).update({ votacion: currentIndex })
   Swal.fire({
     title: "felididades, ya votaste!",
     icon: "success",
@@ -79,15 +79,15 @@ document.getElementById("eye").addEventListener("click", function () {
   }
 }, false);
 
-if(localStorage.getItem("nombre") !== ""){
+if (localStorage.getItem("nombre") !== "") {
   document.getElementById("login").style.display = "none"
   document.getElementById("logout").style.display = "block"
-}else{
+} else {
   document.getElementById("login").style.display = "block"
   document.getElementById("logout").style.display = "none"
   document.getElementById("foto").src = "./OIP.webp"
   document.getElementById("name").innerText = "M.S.F.W"
-  document.getElementById("foto").style.filter  = "hue-rotate("+Math.floor(Math.random() * 361)+")"
+  document.getElementById("foto").style.filter = "hue-rotate(" + Math.floor(Math.random() * 361) + ")"
 }
 function mostrar_login() {
   document.getElementById("overlay").style.display = "block"
@@ -98,7 +98,7 @@ function ocultar_login() {
   document.getElementById("logout").style.display = "none"
   localStorage.clear();
   document.getElementById("foto").src = "./OIP.webp"
-  document.getElementById("foto").style.filter  = "hue-rotate("+Math.floor(Math.random() * 361)+")"
+  document.getElementById("foto").style.filter = "hue-rotate(" + Math.floor(Math.random() * 361) + ")"
   document.getElementById("name").innerText = "M.S.F.W"
 }
 function login() {
@@ -112,24 +112,27 @@ function login() {
       usuario = respuesta.val()
       localStorage.setItem("foto", usuario.foto);
       localStorage.setItem("nombre", usuario.name);
-      document.getElementById("foto").src = usuario.foto
+      localStorage.setItem("uid", uid);
+      document.getElementById("foto").src = usuario |.foto
       document.getElementById("name").innerText = usuario.name
       document.getElementById("login").style.display = "none"
       document.getElementById("logout").style.display = "block"
       Swal.fire({
-        title:"iniciaste sesion",
+        title: "iniciaste sesion",
         icon: "success",
         draggable: true
       });
-  document.getElementById("overlay").style.display = "none"
+      document.getElementById("overlay").style.display = "none"
     })
-    .catch(error=>{
-      Swal.fire("error",error.message,"error")
+    .catch(error => {
+      Swal.fire("error", error.message, "error")
     })
 }
 function crear_cuenta() {
   correo = document.getElementById("email-input").value;
   contraseña = document.getElementById("pwd").value;
+  missaname = document.getElementById("missaname-input").value;
+  foto = document.getElementById("photo-input").value;
   auth.createUserWithEmailAndPassword(correo, contraseña)
     .then(() => {
       Swal.fire({
@@ -137,10 +140,22 @@ function crear_cuenta() {
         icon: "success",
         draggable: true
       });
-  document.getElementById("overlay").style.display = "none"
-    })
-    .catch(error=>{
-      Swal.fire("error",error.message,"error")
+      document.getElementById("overlay").style.display = "none"
+
+      auth.signInWithEmailAndPassword(correo, contraseña)
+        .then(async (unapalabra) => {
+          uid = unapalabra.user.uid;
+          
+          firebase.database().ref("usuario/"+uid).set({
+            foto:foto,
+            name: missaname
+          })
+          login()
+        })
+        .catch(error => {
+          Swal.fire("error", error.message, "error")
+        })
+
     })
 }
 function recuperar() {
@@ -152,9 +167,9 @@ function recuperar() {
         icon: "success",
         draggable: true
       });
-  document.getElementById("overlay").style.display = "none"
+      document.getElementById("overlay").style.display = "none"
     })
-    .catch(error=>{
-      Swal.fire("error",error.message,"error")
+    .catch(error => {
+      Swal.fire("error", error.message, "error")
     })
 }
