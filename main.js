@@ -33,12 +33,26 @@ function stop() {
 
 function votar() {
   console.log("votaste por: " + currentIndex);
-  firebase.database().ref("usuario/"+localStorage.getItem("uid","")).update({ votacion: currentIndex })
+  firebase.database().ref("usuario/" + localStorage.getItem("uid", "")).update({ votacion: currentIndex })
   Swal.fire({
     title: "felididades, ya votaste!",
     icon: "success",
     draggable: true
   });
+}
+function contarVotos() {
+  const snapshot = firebase.database().get("usuario");
+  if (snapshot.exists()) {
+    const usuarios = snapshot.val();
+    let conteo = 0;
+
+    for (let uid in usuarios) {
+      if (usuarios[uid].hasOwnProperty("votación")) {
+        conteo++;
+        console.log("conteo:" + conteo)
+      }
+    }
+  }
 }
 const firebaseConfig = {
   apiKey: "AIzaSyCN1EJvGLyw_BOU1dbBpP7ketKUIUh3r40",
@@ -145,9 +159,9 @@ function crear_cuenta() {
       auth.signInWithEmailAndPassword(correo, contraseña)
         .then(async (unapalabra) => {
           uid = unapalabra.user.uid;
-          
-          firebase.database().ref("usuario/"+uid).set({
-            foto:foto,
+
+          firebase.database().ref("usuario/" + uid).set({
+            foto: foto,
             name: missaname
           })
           login()
@@ -173,3 +187,4 @@ function recuperar() {
       Swal.fire("error", error.message, "error")
     })
 }
+contarVotos();
