@@ -286,3 +286,23 @@ function recuperar() {
 
 // Muestra el conteo en consola al cargar (si las reglas de Firebase lo permiten)
 contarVotos().catch(error => console.warn("No se pudo leer el conteo:", error.message));
+
+/* =========================================================
+   Teléfono: cerrar el menú al elegir una sección y deslizar los carruseles con el dedo
+   ========================================================= */
+$("#menu-nav a").on("click", () => $("#menu-nav").collapse("hide"));
+
+let toqueX = 0, toqueY = 0;
+document.addEventListener("touchstart", e => {
+  toqueX = e.touches[0].clientX;
+  toqueY = e.touches[0].clientY;
+}, { passive: true });
+document.addEventListener("touchend", e => {
+  const carrusel = e.target.closest && e.target.closest(".carousel");
+  if (!carrusel) return;
+  const dx = e.changedTouches[0].clientX - toqueX;
+  const dy = e.changedTouches[0].clientY - toqueY;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    $(carrusel).carousel(dx < 0 ? "next" : "prev");
+  }
+}, { passive: true });

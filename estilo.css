@@ -139,33 +139,38 @@ section {
 }
 
 /* ================= Barra superior: sesión ================= */
+.sesion-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 4px 15px;
+}
+
 .login,
 .login:focus,
 .login:active,
 .login:hover {
-    width: 150px;
-    height: 45px;
-    border: 6.5px outset blue !important;
+    width: auto;
+    min-width: 130px;
+    height: 40px;
+    padding: 0 12px;
+    border: 4px outset blue !important;
     background: transparent !important;
     color: white !important;
     box-shadow: none !important;
-    position: absolute;
-    right: 20px;
-    top: 0;
 }
 
 .usuario {
-    position: absolute;
-    right: 0;
-    top: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     color: white;
-    margin-right: 175px;
-    display: block;
 }
 
 #foto {
     border-radius: 25px;
-    max-width: 50px;
+    max-width: 40px;
     aspect-ratio: 1;
     object-fit: cover;
 }
@@ -598,4 +603,198 @@ input[id="txt-input"] {
     background: transparent;
     color: #c0392b;
     cursor: pointer;
+}
+
+/* ================= Top de puntuaciones ================= */
+.top-lista {
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+.top-lista li {
+    padding: 3px 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.top-lista .top-yo {
+    background: #e9f2ff;
+    font-weight: bold;
+}
+
+/* ================= Teléfono y pantallas táctiles ================= */
+html {
+    scroll-padding-top: 60px;
+}
+
+button,
+.btn,
+a {
+    touch-action: manipulation;
+}
+
+.navbar-nav > li > a {
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+/* Mientras corre el juego, arrastrar el dedo en el escenario no desplaza la página */
+.escenario.jugando {
+    touch-action: none;
+}
+
+/* Botones táctiles del juego (solo en pantallas táctiles) */
+.pad {
+    display: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .pad {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 480px;
+        margin: 10px auto;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+    }
+}
+
+.pad-cruz {
+    display: grid;
+    grid-template-columns: repeat(3, 58px);
+    grid-template-rows: repeat(2, 58px);
+    gap: 4px;
+}
+
+.pad-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0056b3;
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 12px;
+    touch-action: none;
+    cursor: pointer;
+}
+
+.pad-btn.on {
+    background: #28a745;
+}
+
+.pad-btn.arriba { grid-column: 2; grid-row: 1; }
+.pad-btn.izq { grid-column: 1; grid-row: 2; }
+.pad-btn.abajo { grid-column: 2; grid-row: 2; }
+.pad-btn.der { grid-column: 3; grid-row: 2; }
+
+.pad-acc {
+    display: flex;
+    gap: 8px;
+}
+
+.pad-btn.accion {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+}
+
+@media (max-width: 767px) {
+    body {
+        padding-top: 55px;
+    }
+
+    h1 {
+        font-size: 1.6rem !important;
+    }
+
+    h2,
+    h3 {
+        font-size: 1.4rem;
+    }
+
+    section {
+        padding: 10px 6px;
+    }
+
+    .panel-zona {
+        padding: 10px;
+    }
+
+    .sesion-nav {
+        padding: 8px 15px;
+    }
+
+    .video-carousel .carousel-inner {
+        margin: 0 40px;
+    }
+
+    .video-carousel .carousel-control {
+        width: 40px;
+    }
+
+    #myCarousel .item img {
+        height: auto;
+        max-height: 55vh;
+    }
+
+    .creador-izq {
+        flex: 1 1 100%;
+    }
+
+    #blockly-div {
+        flex: 1 1 100%;
+        height: 70vh;
+        min-height: 420px;
+    }
+
+    .form-control,
+    input.form-input {
+        font-size: 16px; /* evita el zoom automático de iOS al escribir */
+    }
+
+    #memorama-tablero {
+        gap: 5px;
+    }
+
+    #atrapa-arena {
+        height: 260px;
+    }
+
+    #meme-galeria,
+    #juegos-galeria {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 420px) {
+    input[class="form-input"] {
+        width: 200px;
+    }
+
+    #login-form button,
+    #login-form .submits {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .pad-cruz {
+        grid-template-columns: repeat(3, 52px);
+        grid-template-rows: repeat(2, 52px);
+    }
+
+    .pad-btn.accion {
+        width: 52px;
+        height: 52px;
+    }
+}
+
+.creador-barra .ejemplos {
+    flex: 0 0 auto;
+    width: auto;
 }

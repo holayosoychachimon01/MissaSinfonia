@@ -23,23 +23,33 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-nav" aria-expanded="false">
+                    <span class="sr-only">Menú</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="navbar-brand" href="#inicio">MissaSinfonia Web</a>
             </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#inicio">Home</a></li>
-                <li><a href="#videos">Videos</a></li>
-                <li><a href="#r0sa-de-guadalupe">Rosa de Guadalupe</a></li>
-                <li><a href="#skins">MissaSinfonia Skins</a></li>
-                <li><a href="#zona-game">Zona Game</a></li>
-                <li><a href="#zona-memes">Zona de Memes</a></li>
-                <li><a href="#crear-juegos">Crear juegos</a></li>
-            </ul>
-        </div>
-        <button id="login" type="button" class="btn btn-outline-primary login" onclick="mostrar_login()">inicia sesion👥</button>
-        <button id="logout" type="button" class="btn btn-outline-primary login" onclick="ocultar_login()">cerrar sesion🚪</button>
-        <div class="usuario">
-            <img src="OIP.webp" id="foto" alt="Foto de perfil">
-            <span id="name">M.S.F.W</span>
+            <div class="collapse navbar-collapse" id="menu-nav">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#inicio">Home</a></li>
+                    <li><a href="#videos">Videos</a></li>
+                    <li><a href="#r0sa-de-guadalupe">Rosa de Guadalupe</a></li>
+                    <li><a href="#skins">MissaSinfonia Skins</a></li>
+                    <li><a href="#zona-game">Zona Game</a></li>
+                    <li><a href="#zona-memes">Zona de Memes</a></li>
+                    <li><a href="#crear-juegos">Crear juegos</a></li>
+                </ul>
+                <div class="navbar-right sesion-nav">
+                    <div class="usuario">
+                        <img src="OIP.webp" id="foto" alt="Foto de perfil">
+                        <span id="name">M.S.F.W</span>
+                    </div>
+                    <button id="login" type="button" class="btn btn-outline-primary login" onclick="mostrar_login()">inicia sesion👥</button>
+                    <button id="logout" type="button" class="btn btn-outline-primary login" onclick="ocultar_login()">cerrar sesion🚪</button>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -118,18 +128,28 @@
                 <button type="button" class="btn btn-danger" onclick="pararJuego()">⏹ Detener</button>
                 <button type="button" class="btn btn-primary" onclick="publicarJuego()">Publicar</button>
                 <button type="button" class="btn btn-default" onclick="nuevoJuego()">Nuevo</button>
+                <select id="ejemplos" class="form-control ejemplos" onchange="cargarEjemplo(this)">
+                    <option value="">📚 Ejemplos…</option>
+                    <option value="monedas">Atrapa monedas</option>
+                    <option value="lluvia">Lluvia de manzanas (clones)</option>
+                    <option value="disparos">Disparos espaciales (clones)</option>
+                </select>
             </div>
             <div class="creador">
                 <div class="creador-izq">
                     <canvas id="escenario" class="escenario" width="480" height="360"></canvas>
-                    <p class="ayuda">Haz clic en el escenario para controlar con el teclado.</p>
+                    <div id="pad-editor"></div>
+                    <p class="ayuda">Toca o haz clic en el escenario. En el teléfono usa los botones de abajo.</p>
+                    <p id="prueba-puntos" class="ayuda"></p>
                     <div id="sprite-tabs"></div>
                     <div class="obj-props">
                         <select id="obj-img" class="form-control"></select>
                         <label>x <input id="obj-x" type="number" class="form-control"></label>
                         <label>y <input id="obj-y" type="number" class="form-control"></label>
                         <label>tamaño <input id="obj-tam" type="number" min="5" max="500" class="form-control"></label>
+                        <button type="button" class="btn btn-xs btn-info" onclick="pedirArchivo('actual')">📁 usar imagen de mi equipo</button>
                         <button type="button" id="obj-quitar" class="btn btn-xs btn-danger">quitar objeto</button>
+                        <input type="file" id="archivo-objeto" accept="image/*" hidden>
                     </div>
                 </div>
                 <div id="blockly-div"></div>
@@ -148,7 +168,10 @@
                 </div>
                 <div class="modal-body text-center">
                     <canvas id="modal-canvas" class="escenario" width="480" height="360"></canvas>
-                    <p class="ayuda">Haz clic en el escenario para controlar con el teclado.</p>
+                    <div id="pad-modal"></div>
+                    <p class="ayuda">Toca o haz clic en el escenario. En el teléfono usa los botones de abajo.</p>
+                    <h5>🏆 Mejores puntuaciones</h5>
+                    <ul id="top-lista" class="top-lista"></ul>
                 </div>
             </div>
         </div>
